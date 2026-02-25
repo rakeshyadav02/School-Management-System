@@ -52,7 +52,7 @@ const AppRoutes = ({ isAuthLoading }) => (
         <Route
           path="/classes"
           element={
-            <RoleRoute allowedRoles={["admin", "teacher"]}>
+            <RoleRoute allowedRoles={["admin", "teacher", "student"]}>
               <Classes />
             </RoleRoute>
           }
@@ -60,7 +60,7 @@ const AppRoutes = ({ isAuthLoading }) => (
         <Route
           path="/attendance"
           element={
-            <RoleRoute allowedRoles={["admin", "teacher"]}>
+            <RoleRoute allowedRoles={["admin", "teacher", "student"]}>
               <Attendance />
             </RoleRoute>
           }
@@ -76,7 +76,7 @@ const AppRoutes = ({ isAuthLoading }) => (
         <Route
           path="/fees"
           element={
-            <RoleRoute allowedRoles={["admin"]}>
+            <RoleRoute allowedRoles={["admin", "teacher", "student"]}>
               <Fees />
             </RoleRoute>
           }

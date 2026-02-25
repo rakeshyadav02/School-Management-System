@@ -31,15 +31,31 @@ import { useLogoutMutation } from "../../features/auth/authApi";
 const drawerWidth = 240;
 
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import AnnouncementIcon from "@mui/icons-material/Announcement";
+import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
+import GavelIcon from "@mui/icons-material/Gavel";
+
 const navItems = [
   { label: "Dashboard", path: "/dashboard", icon: <DashboardIcon />, roles: ["admin", "teacher", "student"] },
+  { label: "Profile", path: "/profile", icon: <AssignmentIndIcon />, roles: ["student"] },
+  { label: "Announcements", path: "/announcements", icon: <AnnouncementIcon />, roles: ["admin", "teacher", "student"] },
+  { label: "Admissions", path: "/admissions", icon: <AssignmentIndIcon />, roles: ["admin", "teacher"] },
   { label: "Students", path: "/students", icon: <PeopleIcon />, roles: ["admin", "teacher"] },
   { label: "Teachers", path: "/teachers", icon: <SchoolIcon />, roles: ["admin"] },
-  { label: "Classes", path: "/classes", icon: <ClassIcon />, roles: ["admin", "teacher"] },
-  { label: "Attendance", path: "/attendance", icon: <FactCheckIcon />, roles: ["admin", "teacher"] },
+  { label: "Classes", path: "/classes", icon: <ClassIcon />, roles: ["admin", "teacher", "student"] },
+  { label: "Attendance", path: "/attendance", icon: <FactCheckIcon />, roles: ["admin", "teacher", "student"] },
   { label: "Exams", path: "/exams", icon: <QuizIcon />, roles: ["admin", "teacher", "student"] },
-  { label: "Fees", path: "/fees", icon: <PaymentsIcon />, roles: ["admin"] },
+  { label: "Fees", path: "/fees", icon: <PaymentsIcon />, roles: ["admin", "student"] },
   { label: "Library", path: "/library", icon: <LibraryBooksIcon />, roles: ["admin", "teacher", "student"] },
+  { label: "Transport", path: "/transport", icon: <DirectionsBusIcon />, roles: ["admin", "teacher", "student"] },
+  { label: "Notifications", path: "/notifications", icon: <NotificationsIcon />, roles: ["admin", "teacher", "student"] },
+  { label: "Timetable", path: "/timetable", icon: <CalendarMonthIcon />, roles: ["admin", "teacher", "student"] },
+  { label: "Health Records", path: "/health", icon: <HealthAndSafetyIcon />, roles: ["admin", "teacher", "student"] },
+  { label: "Discipline Records", path: "/discipline", icon: <GavelIcon />, roles: ["admin", "teacher", "student"] },
   { label: "Users", path: "/admin/users", icon: <AdminPanelSettingsIcon />, roles: ["admin"] }
 ];
 
@@ -70,18 +86,24 @@ const AppLayout = () => {
       </Toolbar>
       <Divider />
       <List>
-        {visibleItems.map((item) => (
-          <ListItemButton
-            key={item.path}
-            component={Link}
-            to={item.path}
-            selected={location.pathname === item.path}
-            onClick={() => setMobileOpen(false)}
-          >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.label} />
-          </ListItemButton>
-        ))}
+        {visibleItems.map((item) => {
+          // Only exact match for dashboard, startsWith for others
+          const isSelected = item.path === "/dashboard"
+            ? location.pathname === "/dashboard"
+            : location.pathname.startsWith(item.path) && item.path !== "/dashboard";
+          return (
+            <ListItemButton
+              key={item.path}
+              component={Link}
+              to={item.path}
+              selected={isSelected}
+              onClick={() => setMobileOpen(false)}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.label} />
+            </ListItemButton>
+          );
+        })}
       </List>
     </Box>
   );
