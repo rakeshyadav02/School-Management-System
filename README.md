@@ -1,11 +1,11 @@
 
 # School Management System
 
-An advanced, full-stack School Management System built with Node.js, Express, MongoDB, and React. Supports role-based access for Admin, Teacher, and Student users. Includes features for admissions, attendance, exams, fees, library, transport, notifications, and more.
+A full-stack school administration platform built with React, Node.js, Express, and MongoDB. The system provides role-based workflows for administrators, teachers, and students across core academic and operational functions.
 
 ---
 
-## 🚀 Features
+## Features
 
 - User authentication (JWT, HTTP-only cookies)
 - Role-based access (admin, teacher, student)
@@ -24,18 +24,30 @@ An advanced, full-stack School Management System built with Node.js, Express, Mo
 
 ---
 
-## 🛠️ Quick Start
+## Quick Start
+
+### Prerequisites
+
+- Node.js 16 or later
+- MongoDB running locally or a MongoDB Atlas connection
+- Two available local ports: `5174` for the frontend and `5001` for the API
+
+This project uses separate local ports so it can run alongside another application:
+
+- Frontend: `http://localhost:5174`
+- Backend API: `http://localhost:5001`
 
 ### 1. Backend Setup
 
-1. Copy `server/.env.example` to `server/.env` and fill in your values:
+1. Create `server/.env` and provide local values. Do not use production credentials for local development:
 	```env
-	PORT=5000
+	PORT=5001
 	MONGO_URI=mongodb://localhost:27017/school_management
-	JWT_SECRET=your-secret
+	JWT_SECRET=replace-with-a-long-random-secret
 	JWT_EXPIRES_IN=7d
+	NODE_ENV=development
 	BCRYPT_SALT_ROUNDS=12
-	CORS_ORIGIN=http://localhost:5173
+	CORS_ORIGIN=http://localhost:5174
 	```
 2. Install dependencies and start the server:
 	```bash
@@ -44,11 +56,17 @@ An advanced, full-stack School Management System built with Node.js, Express, Mo
 	npm run dev
 	```
 
+To load sample users and records for local development, run this once from the `server` directory:
+
+	```bash
+	npm run seed
+	```
+
 ### 2. Frontend Setup
 
-1. Copy `client/.env.example` to `client/.env` and set:
+1. Create `client/.env` and set:
 	```env
-	VITE_API_URL=http://localhost:5000/api
+	VITE_API_URL=http://localhost:5001/api
 	```
 2. Install dependencies and start the client:
 	```bash
@@ -59,16 +77,16 @@ An advanced, full-stack School Management System built with Node.js, Express, Mo
 
 ---
 
-## 🧑‍💻 Usage
+## Usage
 
-1. Open [http://localhost:5173/](http://localhost:5173/) in your browser.
-2. Register as a new user or log in with seeded credentials (if you ran the seed script).
+1. Open [http://localhost:5174/](http://localhost:5174/) in your browser.
+2. Register as a new user or log in with the local credentials created by the seed script.
 3. Use the sidebar to access features: Students, Teachers, Classes, Attendance, Exams, Fees, Library, Transport, Health, Announcements, Notifications, Admissions, Timetable, and more.
 4. Role-based UI: Admins see all features, teachers and students see only their relevant sections.
 
 ---
 
-## 📦 Scripts
+## Scripts
 
 - `npm run dev` (backend) — Start server with nodemon
 - `npm start` (backend) — Start server in production mode
@@ -76,7 +94,7 @@ An advanced, full-stack School Management System built with Node.js, Express, Mo
 
 ---
 
-## 📚 API Endpoints (Sample)
+## API Endpoints (Sample)
 
 - `POST /api/auth/register` — Register new user
 - `POST /api/auth/login` — Login
@@ -91,30 +109,26 @@ An advanced, full-stack School Management System built with Node.js, Express, Mo
 
 ---
 
-## 🔒 Security & Best Practices
+## Security
 
-- **Never commit real secrets or .env files.** Use `.env.example` for templates.
+- **Never commit real secrets or `.env` files.** Configure environment variables locally.
 - All sensitive files are excluded by `.gitignore`.
 - Use strong secrets and unique credentials in production.
 - Regularly update dependencies and audit for vulnerabilities.
+- Treat seeded accounts and data as development-only.
 
 ---
 
-## 📝 Notes
+## Notes
 
 - Role-based access is enforced on all protected routes.
 - Authentication uses secure HTTP-only cookies.
 - All list endpoints support pagination (`page`, `limit`).
-- For more details, see `SETUP_GUIDE.md` and `USER_GUIDE.md` (local only).
+- For more details, see `SETUP_GUIDE.md`.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
----
-
-## 📄 License
-
-This project is licensed under the MIT License.

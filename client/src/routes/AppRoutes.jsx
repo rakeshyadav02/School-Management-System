@@ -24,6 +24,7 @@ import AdmissionsAdmin from "../pages/AdmissionsAdmin";
 import TimetablePage from "../pages/TimetablePage";
 import LibraryPage from "../pages/LibraryPage";
 import TransportPage from "../pages/TransportPage";
+import Profile from "../pages/Profile";
 
 const AppRoutes = ({ isAuthLoading }) => (
   <Routes>
@@ -89,6 +90,7 @@ const AppRoutes = ({ isAuthLoading }) => (
             </RoleRoute>
           }
         />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/announcements" element={<Announcements />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/admission" element={<AdmissionForm />} />
